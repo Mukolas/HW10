@@ -226,24 +226,126 @@ zapysDiv.style.margin= '5px';
 zapysDiv.style.marginLeft ='230px';
 zapysDiv.style.border = '3px solid black';
 zapysDiv.style.borderRadius ='10px';
-
+zapysDiv.style.width='1050px';
+zapysDiv.style.minHeight='467px';
 
 let button = document.getElementById('buttonOfList');
         r=localStorage.length;
+        for(n=1;n<=localStorage.length;n++){
+        let newDiw =document.createElement('div');
+        newDiw.style.border='2px solid black';
+        newDiw.style.margin='5px';
+        newDiw.style.padding='2px';
+        newDiw.style.minHeight='30px';
+        let texting = document.createTextNode(localStorage.getItem('firstItem'+n));
+            newDiw.appendChild(texting);
+            zapysDiv.appendChild(newDiw);
+            let butRed = document.createElement('button');
+            let redactbtn = document.createTextNode('Redact');
+            butRed.style.margin ='5px';
+            butRed.style.float='right';
+            butRed.personalid=r;
+            
+            butRed.appendChild(redactbtn);
+            newDiw.appendChild(butRed);
+    
+            let but = document.createElement('button');
+            let textbtn = document.createTextNode('Remuve');
+            but.style.margin ='5px';
+            but.style.float='right';
+            but.personalid=r;
+            but.appendChild(textbtn);
+            newDiw.appendChild(but);
+            
+            but.onclick=()=>{
+                localStorage.removeItem('firstItem'+but.personalid);
+                zapysDiv.removeChild(newDiw);
+            }
+            butRed.onclick=()=>{
+               let redact = document.createElement('div');
+               redact.style.width='800px';
+               redact.style.height='200px';
+               redact.style.border='2px solid black';
+               redact.style.padding='5px';
+               redact.style.margin='5px';
+               let PIBform = document.createElement('form');
+               PIBform.innerText='Введіть нове ПІБ:';
+               let newPIB = document.createElement('input');
+               newPIB.style.marginBottom='5px';
+               PIBform.appendChild(newPIB);
+    
+               let NomerForm =document.createElement('form');
+               NomerForm.innerText='Введіть новий номер: ';
+               let newNom =document.createElement('input');
+               NomerForm.style.marginBottom='5px';
+               NomerForm.appendChild(newNom);
+    
+               let PostForm =document.createElement('form');
+               PostForm.innerText='Введіть нову Пошту: ';
+               let newPost =document.createElement('input');
+               PostForm.style.marginBottom='5px';
+               PostForm.appendChild(newPost);
+    
+               let FirmForm =document.createElement('form');
+               FirmForm.innerText='Введіть нову фірму: ';
+               let newFirm =document.createElement('input');
+               FirmForm.style.marginBottom='5px';
+               FirmForm.appendChild(newFirm);
+    
+               let ViddilForm =document.createElement('form');
+               ViddilForm.innerText='Введіть новий відділ: ';
+               let newViddil =document.createElement('input');
+               ViddilForm.style.marginBottom='5px';
+               ViddilForm.appendChild(newViddil);
+    
+               let DNForm =document.createElement('form');
+               DNForm.innerText='Нова Дата Народження: ';
+               let newDN =document.createElement('input');
+               newDN.type='date';
+               DNForm.style.marginBottom='5px';
+               DNForm.appendChild(newDN);
+    
+               let changeBut= document.createElement('button');
+               changeBut.innerText='Змінити';
+               changeBut.style.width='65px';
+               changeBut.style.height='30px';
+               changeBut.onclick=()=>{
+                localStorage.setItem('firstItem'+r,`ПІБ: ${newPIB.value} || Номер: ${newNom.value} || Пошта: ${newPost.value} || Фірма: ${newFirm.value} || Відділ: ${newViddil.value} || ДН: ${newDN.value}`);
+                zapysDiv.removeChild(newDiw);
+                funk();
+               }
+    
+               redact.appendChild(PIBform);
+               redact.appendChild(NomerForm);
+               redact.appendChild(PostForm);
+               redact.appendChild(FirmForm);
+               redact.appendChild(ViddilForm);
+               redact.appendChild(DNForm);
+               redact.appendChild(changeBut);
+    
+               newDiw.appendChild(redact);
+            }
+            funk();
+        }
+        
 button.onclick=()=>{
     r++;
- person=[{
+ person={
 PIB : textPIB.value,
 number : textNom.value,
 posht : textPost.value,
 firm : textFirm.value,
 viddil : textSel.value,
 dateBorn  : dateDN.value
-}]
-let json = JSON.stringify(person);
-localStorage.setItem('firstItem'+r,json);
+}
+
+localStorage.setItem('firstItem'+r,`ПІБ: ${textPIB.value} || Номер: ${textNom.value} || Пошта: ${textPost.value} || Фірма: ${textFirm.value} || Відділ: ${textSel.value} || ДН: ${dateDN.value}`);
 function funk(){
     let newDiw =document.createElement('div');
+    newDiw.style.border='2px solid black';
+    newDiw.style.margin='5px';
+    newDiw.style.padding='2px';
+    newDiw.style.minHeight='30px';
     let texting = document.createTextNode(localStorage.getItem('firstItem'+r));
         newDiw.appendChild(texting);
         zapysDiv.appendChild(newDiw);
@@ -251,46 +353,94 @@ function funk(){
         let butRed = document.createElement('button');
         let redactbtn = document.createTextNode('Redact');
         butRed.style.margin ='5px';
+        butRed.style.float='right';
+        butRed.personalid=r;
+        
         butRed.appendChild(redactbtn);
         newDiw.appendChild(butRed);
 
         let but = document.createElement('button');
         let textbtn = document.createTextNode('Remuve');
         but.style.margin ='5px';
+        but.style.float='right';
+        but.personalid=r;
         but.appendChild(textbtn);
         newDiw.appendChild(but);
         
+        but.onclick=()=>{
+            localStorage.removeItem('firstItem'+but.personalid);
+            zapysDiv.removeChild(newDiw);
+        }
+        butRed.onclick=()=>{
+           let redact = document.createElement('div');
+           redact.style.width='800px';
+           redact.style.height='200px';
+           redact.style.border='2px solid black';
+           redact.style.padding='5px';
+           redact.style.margin='5px';
+           let PIBform = document.createElement('form');
+           PIBform.innerText='Введіть нове ПІБ:';
+           let newPIB = document.createElement('input');
+           newPIB.style.marginBottom='5px';
+           PIBform.appendChild(newPIB);
+
+           let NomerForm =document.createElement('form');
+           NomerForm.innerText='Введіть новий номер: ';
+           let newNom =document.createElement('input');
+           NomerForm.style.marginBottom='5px';
+           NomerForm.appendChild(newNom);
+
+           let PostForm =document.createElement('form');
+           PostForm.innerText='Введіть нову Пошту: ';
+           let newPost =document.createElement('input');
+           PostForm.style.marginBottom='5px';
+           PostForm.appendChild(newPost);
+
+           let FirmForm =document.createElement('form');
+           FirmForm.innerText='Введіть нову фірму: ';
+           let newFirm =document.createElement('input');
+           FirmForm.style.marginBottom='5px';
+           FirmForm.appendChild(newFirm);
+
+           let ViddilForm =document.createElement('form');
+           ViddilForm.innerText='Введіть новий відділ: ';
+           let newViddil =document.createElement('input');
+           ViddilForm.style.marginBottom='5px';
+           ViddilForm.appendChild(newViddil);
+
+           let DNForm =document.createElement('form');
+           DNForm.innerText='Нова Дата Народження: ';
+           let newDN =document.createElement('input');
+           newDN.type='date';
+           DNForm.style.marginBottom='5px';
+           DNForm.appendChild(newDN);
+
+           let changeBut= document.createElement('button');
+           changeBut.innerText='Змінити';
+           changeBut.style.width='65px';
+           changeBut.style.height='30px';
+           changeBut.onclick=()=>{
+            localStorage.setItem('firstItem'+r,`ПІБ: ${newPIB.value} || Номер: ${newNom.value} || Пошта: ${newPost.value} || Фірма: ${newFirm.value} || Відділ: ${newViddil.value} || ДН: ${newDN.value}`);
+            zapysDiv.removeChild(newDiw);
+            funk();
+           }
+
+           redact.appendChild(PIBform);
+           redact.appendChild(NomerForm);
+           redact.appendChild(PostForm);
+           redact.appendChild(FirmForm);
+           redact.appendChild(ViddilForm);
+           redact.appendChild(DNForm);
+           redact.appendChild(changeBut);
+
+           newDiw.appendChild(redact);
+        }
         
 
 }
 funk();
 
 }
-for(i=1;i<=localStorage.length;i++){
-           let newDiw =document.createElement('div');
-    let texting = document.createTextNode(localStorage.getItem('firstItem'+i));
-        newDiw.appendChild(texting);
-        zapysDiv.appendChild(newDiw);
 
-        let butRed = document.createElement('button');
-        let redactbtn = document.createTextNode('Redact');
-        butRed.style.margin ='5px';
-        butRed.appendChild(redactbtn);
-        newDiw.appendChild(butRed);
-
-        let but = document.createElement('button');
-        let textbtn = document.createTextNode('Remuve');
-        but.style.margin ='5px';
-        but.appendChild(textbtn);
-        newDiw.appendChild(but);
-        e=i;
-        but.onclick=()=>{
-            console.log(e); 
-            localStorage.removeItem('firstItem'+e);
-        }
-        butRed.onclick =()=>{
-            forRead.style.display ='inline-block';
-        }
-}
 
 
